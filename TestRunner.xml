@@ -3,6 +3,8 @@
 
 <suite name="Google Test">
 	<test name="Google Search" >
+		<parameter name="searchURL" value="https://www.google.com/"/>
+		<parameter name="searchTerm" value="columbia mo"/>
 		<classes>
 			<class name="incident.automation.scripts.GoogleSearchOneTime"></class>
 		</classes>

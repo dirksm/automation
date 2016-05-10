@@ -6,8 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class GoogleSearchOneTime {
@@ -16,14 +18,15 @@ public class GoogleSearchOneTime {
 	
 	@BeforeTest
 	public void setup() {
+		System.setProperty("webdriver.chrome.driver", "/home/dirksm/drivers/chromedriver");
+		
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	@Test
+	@Parameters({"searchURL", "searchTerm"})
 	public void executeTest(String searchURL, String searchTerm) {
-		
-		System.setProperty("webdriver.chrome.driver", "/home/dirksm/drivers/chromedriver");
 		
 		driver.get(searchURL);
 		GoogleSearchOneTime.executeSearch(driver, searchTerm);
@@ -66,6 +69,7 @@ public class GoogleSearchOneTime {
 		System.out.println("page title: " + pageTitle);
 		
 		boolean titleContainsTerm = pageTitle.contains(searchTerm);
+		Assert.assertEquals(titleContainsTerm, true);
 		
 		System.out.println("contains term: " + titleContainsTerm);
 	}
